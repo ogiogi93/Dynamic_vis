@@ -1,0 +1,375 @@
+{% extends "header.html" %}
+{% load staticfiles %}
+{% block title %}Main Page{% endblock title %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <!-- container section start -->
+    <section id="container" class="">
+
+
+        <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
+                        class="icon_menu"></i></div>
+            </div>
+
+            <!--logo start-->
+            <a href="index.html" class="logo">MDBL <span class="lite">Research</span></a>
+            <!--logo end-->
+
+        </header>
+        <!--header end-->
+
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+                    <li class="active">
+                        <a class="" href="index.html">
+                            <i class="icon_house_alt"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <!--overview start-->
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                    </div>
+                    <div class="col-lg-3">
+                        <h3 class="page-header"><i class="fa fa-font-awesome"></i> Notification</h3>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-map-marker red"></i><strong>Countries</strong></h2>
+                                <div class="panel-actions">
+                                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body-map">
+                                <div id="map" style="height:380px;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="dc-notification-table"></div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box blue-bg">
+                            <i class="fa fa-cloud-download"></i>
+                            <div class="count">6.674</div>
+                            <div class="title">Download</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box brown-bg">
+                            <i class="fa fa-shopping-cart"></i>
+                            <div class="count">7.538</div>
+                            <div class="title">Purchased</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box dark-bg">
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <div class="count">4.362</div>
+                            <div class="title">Order</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box green-bg">
+                            <i class="fa fa-cubes"></i>
+                            <div class="count">1.426</div>
+                            <div class="title">Stock</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="dc-time-range"></div>
+                    </div>
+                </div><!--/.row-->
+
+
+                <!-- Today status end -->
+
+                <br><br>
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-flag-o red"></i><strong>Registered Users</strong></h2>
+                                <div class="panel-actions">
+                                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table bootstrap-datatable countries">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Country</th>
+                                        <th>Users</th>
+                                        <th>Online</th>
+                                        <th>Performance</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><img src="/static/img/Germany.png" style="height:18px; margin-top:-2px;">
+                                        </td>
+                                        <td>Germany</td>
+                                        <td>2563</td>
+                                        <td>1025</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 73%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="27" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 27%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">73%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/India.png" style="height:18px; margin-top:-2px;"></td>
+                                        <td>India</td>
+                                        <td>3652</td>
+                                        <td>2563</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 57%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 43%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">57%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/Spain.png" style="height:18px; margin-top:-2px;"></td>
+                                        <td>Spain</td>
+                                        <td>562</td>
+                                        <td>452</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 93%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="7" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 7%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">93%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/India.png" style="height:18px; margin-top:-2px;"></td>
+                                        <td>Russia</td>
+                                        <td>1258</td>
+                                        <td>958</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 20%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 80%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">20%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/Spain.png" style="height:18px; margin-top:-2px;"></td>
+                                        <td>USA</td>
+                                        <td>4856</td>
+                                        <td>3621</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 20%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 80%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">20%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/Germany.png" style="height:18px; margin-top:-2px;">
+                                        </td>
+                                        <td>Brazil</td>
+                                        <td>265</td>
+                                        <td>102</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 20%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 80%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">20%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/Germany.png" style="height:18px; margin-top:-2px;">
+                                        </td>
+                                        <td>Coloumbia</td>
+                                        <td>265</td>
+                                        <td>102</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 20%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 80%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">20%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="/static/img/Germany.png" style="height:18px; margin-top:-2px;">
+                                        </td>
+                                        <td>France</td>
+                                        <td>265</td>
+                                        <td>102</td>
+                                        <td>
+                                            <div class="progress thin">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 20%">
+                                                </div>
+                                                <div class="progress-bar progress-bar-warning" role="progressbar"
+                                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 80%">
+                                                </div>
+                                            </div>
+                                            <span class="sr-only">20%</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div><!--/col-->
+
+                </div>
+                <!-- project team & activity end -->
+            </section>
+        </section>
+        <!--main content end-->
+    </section>
+    <!-- container section start -->
+
+    <!-- javascripts -->
+    <!--script for this page only-->
+    <script src="{% static 'js/calendar-custom.js' %}"></script>
+    <script src="{% static 'js/jquery.rateit.min.js' %}"></script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="{% static 'js/crossfilter.js' %}"></script>
+    <script src="{% static 'js/dc.js' %}"></script>
+    <!-- custom select -->
+    <script src="{% static 'js/jquery.customSelect.min.js' %}"></script>
+    <script src="{% static 'assets/chart-master/Chart.js' %}"></script>
+
+    <!--custome script for all page-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <!-- custom script for this page-->
+    <script src="{% static 'js/sparkline-chart.js' %}"></script>
+    <script src="{% static 'js/easy-pie-chart.js' %}"></script>
+    <script src="{% static 'js/jquery-jvectormap-1.2.2.min.js' %}"></script>
+    <script src="{% static 'js/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'js/xcharts.min.js' %}"></script>
+    <script src="{% static 'js/jquery.autosize.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/gdp-data.js' %}"></script>
+    <script src="{% static 'js/morris.min.js' %}"></script>
+    <script src="{% static 'js/sparklines.js' %}"></script>
+    <script src="{% static 'js/charts.js' %}"></script>
+    <script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        var result = {{ result|safe }};
+        var parseDatetime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
+        result.forEach(function (d) {
+            d.interval_dc = parseDatetime(d.interval);
+        });
+
+        /* run data through crossfilter */
+        ndx = crossfilter(result);
+
+        /* Set dimension */
+        dimLocation = ndx.dimension(function (d) {
+            return d.location_name;
+        });
+        dimTime = ndx.dimension(function (d) {
+            return d.interval_dc;
+        });
+        /* Set group */
+        grpLocation = dimLocation.group().reduceSum(function (d) {
+            return d.num_of_people;
+        });
+        grpTime = dimTime.group().reduceSum(function (d) {
+            return d.num_of_people;
+        });
+        /* Time Range */
+        minTime = dimTime.bottom(1)[0].interval_dc;
+        maxTime = dimTime.top(1)[0].interval_dc;
+        render_plots()
+    </script>
+{% endblock %}
