@@ -55,9 +55,19 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-9 col-md-12">
-                        <h3>滞在人数推移</h3>
+                    <div class="col-lg-12 col-md-12">
+                        <h3>滞在人数・意味解析結果推移</h3>
                         <div id="dc-line-graph"></div>
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <h5>Danger</h5>
+                        <h5> Event </h5>
+                        <h5> Congestion </h5>
+                        <h5> Confuse </h5>
+                        <h5> Stable </h5>
+                    </div>
+                    <div class="col-lg-11 col-md-11">
+                        <div id="dc-label"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -101,11 +111,12 @@
         var firstVisitChart = dc.pieChart("#dc-firstvisit-graph");
         var timeRange = dc.lineChart('#dc-time-range');
         var bubbleChart = dc.bubbleChart('#dc-bubble-graph');
+        var labelChart = dc.lineChart('#dc-label');
 
         function render_plots() {
             lineChart
                     .width(1200)
-                    .height(300)
+                    .height(200)
                     .x(d3.time.scale().domain([minTime, maxTime]))
                     .brushOn(true)
                     .yAxisLabel("Number of People")
@@ -118,7 +129,7 @@
 
             countryChart
                     .width(400)
-                    .height(200)
+                    .height(150)
                     .dimension(dimCountry)
                     .group(grpCountry)
                     .slicesCap(4)
@@ -132,7 +143,7 @@
 
             firstVisitChart
                     .width(400)
-                    .height(200)
+                    .height(150)
                     .dimension(dimFirstVisit)
                     .group(grpFirstVisit)
                     .slicesCap(4)
@@ -146,7 +157,7 @@
 
             bubbleChart
                     .width(400)
-                    .height(200)
+                    .height(150)
                     .dimension(dimStayTime)
                     .group(dimStayTime.group().reduceCount())
                     .keyAccessor(function (d) {
@@ -164,6 +175,17 @@
                     .r(d3.scale.linear().domain([0, 150]))
                     .xAxisLabel('Number of People')
                     .yAxisLabel('Average Stay Time(m)');
+
+            labelChart
+                    .width(1050)
+                    .height(150)
+                    .x(d3.time.scale().domain([minTime, maxTime]))
+                    .brushOn(true)
+                    .margins({top: 0, right: 0, bottom: 0, left: -30})
+                    .elasticY(true)
+                    //.mouseZoomable(true)
+                    .dimension(dimTime)
+                    .group(grpTimeLabel);
 
             timeRange
                     .width(1200)
@@ -185,6 +207,7 @@
         result_rows.forEach(function (d) {
             d.interval_dc = parseDatetime(d.interval);
         });
+        console.log(result);
         console.log(result_rows);
 
         /* run data through crossfilter */
@@ -197,6 +220,9 @@
         });
         var grpTime = dimTime.group().reduceSum(function (d) {
             return d.num_of_people;
+        });
+        var grpTimeLabel = dimTime.group().reduceSum(function (d) {
+            return d.situation_label;
         });
         /* Time Range */
         var minTime = dimTime.bottom(1)[0].interval_dc;
@@ -215,7 +241,7 @@
             return d.first_visit;
         });
         var dimStayTime = ndx_rows.dimension(function (d) {
-            return [d.num_of_people,d.stay_time_avg];
+            return [d.num_of_people, d.stay_time_avg];
         });
         /* Set group */
         var grpRowsTime = dimRowsTime.group().reduceCount(function (d) {
@@ -230,6 +256,8 @@
         /* Time Range */
         var minRowsTime = dimRowsTime.bottom(1)[0].interval_dc;
         var maxRowsTime = dimRowsTime.top(1)[0].interval_dc;
+
+        console.log(grpTimeLabel.all()[0].value);
 
         render_plots()
     </script>

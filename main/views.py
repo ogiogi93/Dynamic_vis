@@ -33,7 +33,7 @@ def detail_page(request):
             "location_name": location_name,
             "date": date,
             "result": result,
-            "result_rows": result_rows
+            "result_rows": result_rows,
         }
         return render(request, 'main/detail.html', context)
     return HttpResponse(status=400)

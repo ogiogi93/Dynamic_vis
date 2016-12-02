@@ -46,6 +46,24 @@ class Result(object):
         """
         return '初回訪問' if first == 1 else '複数訪問'
 
+    def situation_label(self, situation):
+        """
+        situationに関するラベル付をする
+        :param situation:
+        :return:
+        """
+        if situation == 'Danger':
+            return 5
+        elif situation == 'Event':
+            return 4
+        elif situation == 'congestion':
+            return 3
+        elif situation == 'confuse':
+            return 2
+        else:
+            return 1
+
+
     def cal_score(self, features, semantic):
         """
         距離計算をする
@@ -125,6 +143,7 @@ class Result(object):
         # 可視化用にラベル付をする
         final_features['country'] = final_features['country'].apply(self.country_label)
         final_features['first_visit'] = final_features['first_visit'].apply(self.first_visit_label)
+
         return final_features.to_json(orient='records')
 
     def main(self, location_name=None, date=None):
@@ -159,4 +178,6 @@ class Result(object):
             final_features = final_features[
                 (final_features['date'] == date) & (final_features['location_name'] == location_name)].reset_index(
                 drop=True)
+        # 意味解析結果ラベルを抽出する
+        final_features['situation_label'] = final_features['situation'].apply(self.situation_label)
         return final_features.to_json(orient='records')
