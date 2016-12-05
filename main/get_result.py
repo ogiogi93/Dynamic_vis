@@ -2,6 +2,7 @@
 import pandas as pd
 from django.db import connection
 from main.score import Score
+from main.interval_location import IntervalLocation
 
 
 class Result(object):
@@ -22,13 +23,23 @@ class Result(object):
 
     def normalize(self, df):
         """
-        正規化する
+        地点ごとに正規化する
         :param df:
         :return:
         """
-        return df.set_index(['interval', 'location_id'])[
-            ['stay_time_avg', 'firstvisit_rate', 'num_of_people', 'foreign_rate']].apply(
-            lambda x: (x - x.mean()) / x.std(), axis=0).fillna(0).reset_index()
+        location_ids = df['location_id'].unique().tolist()
+        for i, location_id in enumerate(location_ids):
+            selected = df[df['location_id'] == location_id]
+            if i == 0:
+                normalized = selected.set_index(['interval', 'location_id'])[
+                    ['stay_time_avg', 'firstvisit_rate', 'num_of_people', 'foreign_rate']].apply(
+                    lambda x: (x - x.mean()) / x.std(), axis=0).fillna(0).reset_index()
+            else:
+                temp = selected.set_index(['interval', 'location_id'])[
+                    ['stay_time_avg', 'firstvisit_rate', 'num_of_people', 'foreign_rate']].apply(
+                    lambda x: (x - x.mean()) / x.std(), axis=0).fillna(0).reset_index()
+                normalized = pd.concat([normalized, temp], axis=0)
+        return normalized.reset_index(drop=True)
 
     def country_label(self, country):
         """
@@ -62,7 +73,6 @@ class Result(object):
             return 2
         else:
             return 1
-
 
     def cal_score(self, features, semantic):
         """
@@ -120,6 +130,31 @@ class Result(object):
         cursor.execute("SELECT * FROM " + db_table + "")
         return pd.DataFrame(list(self.dictfetchall(cursor)))
 
+    def completion_feature(self, features):
+        """
+        欠損値を補完する
+        :param features:
+        :return:
+        """
+        intervals = features['interval'].astype(str).unique().tolist()
+        # locations = features['location_id'].unique().tolist()
+        locations = [1, 2, 3, 4, 5]
+
+        interval_location_list = []
+        for interval in intervals:
+            for location in locations:
+                interval_location_list.append(IntervalLocation(interval, location))
+
+        df_interval_location = pd.DataFrame({'interval': [a.interval for a in interval_location_list],
+                                             'location_id': [a.location for a in interval_location_list]})
+        df_interval_location['interval'] = pd.to_datetime(df_interval_location['interval'])
+        final_features = pd.merge(df_interval_location, features, on=['interval', 'location_id'], how='left')
+        final_features['situation'] = final_features['situation'].fillna('Stable')
+        final_features['detail'] = final_features['detail'].fillna('平常状態')
+        final_features = final_features.fillna(0)
+
+        return final_features
+
     def detail(self, location_name=None, date=None):
         """
         詳細情報を返す
@@ -146,12 +181,14 @@ class Result(object):
 
         return final_features.to_json(orient='records')
 
-    def main(self, location_name=None, date=None):
+    def main(self, location_name=None, date='2016-11-10'):
         """
         集計結果を返す
+        :param location_name:
+        :param date:
         :return:
         """
-        features = self.get_sensor_data(db_table='features')
+        features = self.get_sensor_data(db_table='features', date=date)
         semantic = self.get_data(db_table='semantic')
         location = self.get_data(db_table='location')
         features_normed = self.normalize(features)
@@ -165,7 +202,9 @@ class Result(object):
         df_semantic_score2 = df_semantic_score.sort_values('score', ascending=False).groupby(
             ['interval', 'location_id'], as_index=False).first()
         final_features = pd.merge(features, df_semantic_score2, on=['interval', 'location_id'])
-        final_features = pd.merge(final_features, location, on=['location_id'])
+
+        # 欠損値を補完する
+        final_features = self.completion_feature(final_features)
 
         # 日付情報を付加
         final_features['date'] = final_features['interval'].apply(self.add_date)
@@ -173,6 +212,8 @@ class Result(object):
         final_features['interval'] = final_features['interval'].astype(str)
         final_features['date'] = final_features['date'].astype(str)
 
+        # 地点情報をmerge
+        final_features = pd.merge(final_features, location, on=['location_id'])
         if location_name and date:
             # 日付、地点が指定されていた場合
             final_features = final_features[

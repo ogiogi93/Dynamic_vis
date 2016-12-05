@@ -34,7 +34,7 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a class="" href="index.html">
+                        <a class="" href="{% url 'main_page' %}">
                             <i class="icon_house_alt"></i>
                             <span>Home</span>
                         </a>
@@ -59,6 +59,8 @@
                         <h3>滞在人数・意味解析結果推移</h3>
                         <div id="dc-line-graph"></div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-1 col-md-1">
                         <h5>Danger</h5>
                         <h5> Event </h5>
@@ -68,6 +70,13 @@
                     </div>
                     <div class="col-lg-11 col-md-11">
                         <div id="dc-label"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>
+                            <div id="dc-present-time"></div>
+                        </h4>
                     </div>
                 </div>
                 <div class="row">
@@ -112,11 +121,12 @@
         var timeRange = dc.lineChart('#dc-time-range');
         var bubbleChart = dc.bubbleChart('#dc-bubble-graph');
         var labelChart = dc.lineChart('#dc-label');
+        var presentTime = dc.dataTable('#dc-present-time');
 
         function render_plots() {
             lineChart
                     .width(1200)
-                    .height(200)
+                    .height(175)
                     .x(d3.time.scale().domain([minTime, maxTime]))
                     .brushOn(true)
                     .yAxisLabel("Number of People")
@@ -181,11 +191,29 @@
                     .height(150)
                     .x(d3.time.scale().domain([minTime, maxTime]))
                     .brushOn(true)
-                    .margins({top: 0, right: 0, bottom: 0, left: -30})
+                    .margins({top: 0, right: 0, bottom: -1, left: -30})
                     .elasticY(true)
                     //.mouseZoomable(true)
                     .dimension(dimTime)
                     .group(grpTimeLabel);
+
+            presentTime
+                    .width(400)
+                    .height(600)
+                    .dimension(dimRowsTime)
+                    .group(function () {
+                        return "";
+                    })
+                    .size(1)
+                    .columns([
+                        function (d) {
+                            return d.interval;
+                        }
+                    ])
+                    .sortBy(function (d) {
+                        return d.interval_dc;
+                    })
+                    .order(d3.descending);
 
             timeRange
                     .width(1200)

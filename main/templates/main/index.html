@@ -29,7 +29,7 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a class="" href="index.html">
+                        <a class="" href="{% url 'main_page' %}">
                             <i class="icon_house_alt"></i>
                             <span>Home</span>
                         </a>
@@ -49,6 +49,13 @@
                     </div>
                     <div class="col-lg-3">
                         <h3 class="page-header"><i class="fa fa-font-awesome"></i>Notification</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>
+                            <div id="dc-present-time"></div>
+                        </h4>
                     </div>
                 </div>
 
@@ -96,7 +103,7 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h2><i class="fa fa-flag-o red"></i><strong>Registered Users</strong></h2>
+                                <h2><i class="fa fa-flag-o red"></i><strong>推定結果</strong></h2>
                                 <div class="panel-actions">
                                     <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                                     <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
@@ -104,38 +111,19 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <table class="table bootstrap-datatable countries">
+                                <table class="table bootstrap-datatable countries" id="dc-result-table">
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Country</th>
-                                        <th>Users</th>
-                                        <th>Online</th>
-                                        <th>Performance</th>
+                                        <th>日時</th>
+                                        <th>地点</th>
+                                        <th>滞在人数</th>
+                                        <th>滞在平均時間(分)</th>
+                                        <th>訪日外国人比率</th>
+                                        <th>初回訪問比率</th>
+                                        <th>状況</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><img src="/static/img/Germany.png" style="height:18px; margin-top:-2px;">
-                                        </td>
-                                        <td>Germany</td>
-                                        <td>2563</td>
-                                        <td>1025</td>
-                                        <td>
-                                            <div class="progress thin">
-                                                <div class="progress-bar progress-bar-danger" role="progressbar"
-                                                     aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: 73%">
-                                                </div>
-                                                <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                     aria-valuenow="27" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: 27%">
-                                                </div>
-                                            </div>
-                                            <span class="sr-only">73%</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
                                 </table>
                             </div>
 
@@ -164,7 +152,9 @@
     <script>
         var notificationTable = dc.dataTable("#dc-notification-table");
         var plotTable = dc.dataTable("#dc-plot-table");
+        var resultTable = dc.dataTable("#dc-result-table");
         var timeRange = dc.lineChart('#dc-time-range');
+        var presentTime = dc.dataTable('#dc-present-time');
 
         function render_plots() {
             notificationTable
@@ -177,9 +167,8 @@
                     .size(4)
                     .columns([
                         function (d) {
-                            console.log(d.location_name);
                             if (d.situation != 'Stable') {
-                                return ('<div class="desc"><div class="thumb"><span class="badge bg-theme"><i class="fa fa-clock-o"></i></span></div><div class="details"><p><muted>' + d.interval + '</muted><br/>' + d.location_name + ' [' + d.situation + ']<br/>' + d.detail + '</p></div></div>');
+                                return ('<div class="desc"><div class="thumb"><span class="badge bg-theme"><i class="fa fa-clock-o"></i></span></div><div class="details">' + ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + '<p><muted>' + d.interval + '</muted><br/>' + d.location_name + ' [' + d.situation + ']<br/>' + d.detail + '</p></a></div></div>');
                             }
                         }
                     ])
@@ -201,6 +190,75 @@
                             if (d.location_name == '食堂') {
                                 return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 195px; left: 55px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
+                            if (d.location_name == '生協') {
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 50px; left: 220px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                            }
+                            if (d.location_name == '大教室') {
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 475px; left: 215px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                            }
+                            if (d.location_name == '小教室') {
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 110px; left: 330px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                            }
+                            if (d.location_name == 'メディアセンター') {
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 225px; left: 500px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                            }
+                        }
+                    ])
+                    .sortBy(function (d) {
+                        return d.interval_dc;
+                    })
+                    .order(d3.descending);
+
+            presentTime
+                    .width(400)
+                    .height(600)
+                    .dimension(dimTime)
+                    .group(function () {
+                        return "";
+                    })
+                    .size(1)
+                    .columns([
+                        function (d) {
+                            return d.interval;
+                        }
+                    ])
+                    .sortBy(function (d) {
+                        return d.interval_dc;
+                    })
+                    .order(d3.descending);
+
+            resultTable
+                    .width(400)
+                    .height(600)
+                    .dimension(dimTime)
+                    .group(function () {
+                        return "";
+                    })
+                    .size(6)
+                    .columns([
+                        function (d) {
+                            return '';
+                        },
+                        function (d) {
+                            return d.interval;
+                        },
+                        function (d) {
+                            return d.location_name;
+                        },
+                        function (d) {
+                            return d.num_of_people;
+                        },
+                        function (d) {
+                            return Math.round(d.stay_time_avg);
+                        },
+                        function (d) {
+                            return Math.round(d.foreign_rate)*100 + '%';
+                        },
+                        function (d) {
+                            return Math.round(d.firstvisit_rate)*100 + '%';
+                        },
+                        function (d) {
+                            return d.situation;
                         }
                     ])
                     .sortBy(function (d) {
@@ -224,6 +282,7 @@
         result.forEach(function (d) {
             d.interval_dc = parseDatetime(d.interval);
         });
+        console.log(result);
 
         /* run data through crossfilter */
         ndx = crossfilter(result);
