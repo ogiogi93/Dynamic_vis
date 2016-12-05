@@ -11,94 +11,60 @@
 {% endblock %}
 
 {% block content %}
-    <!-- container section start -->
-    <section id="container" class="">
-
-
-        <header class="header dark-bg">
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
-                        class="icon_menu"></i></div>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-lg-9">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i>{{ date }} {{ location_name }}の詳細情報</h3>
+                </div>
             </div>
 
-            <!--logo start-->
-            <a href="{% url 'main_page' %}" class="logo">MDBL <span class="lite">Research</span></a>
-            <!--logo end-->
-
-        </header>
-        <!--header end-->
-
-        <!--sidebar start-->
-        <aside>
-            <div id="sidebar" class="nav-collapse ">
-                <!-- sidebar menu start-->
-                <ul class="sidebar-menu">
-                    <li class="active">
-                        <a class="" href="{% url 'main_page' %}">
-                            <i class="icon_house_alt"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- sidebar menu end-->
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h3>滞在人数・意味解析結果推移</h3>
+                    <div id="dc-line-graph"></div>
+                </div>
             </div>
-        </aside>
-        <!--sidebar end-->
-        <!--main content start-->
-        <section id="main-content">
-            <section class="wrapper">
-                <!--overview start-->
-                <div class="row">
-                    <div class="col-lg-9">
-                        <h3 class="page-header"><i class="fa fa-laptop"></i>{{ date }} {{ location_name }}の詳細情報</h3>
-                    </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-1">
+                    <h5>Danger</h5>
+                    <h5> Event </h5>
+                    <h5> Congestion </h5>
+                    <h5> Confuse </h5>
+                    <h5> Stable </h5>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <h3>滞在人数・意味解析結果推移</h3>
-                        <div id="dc-line-graph"></div>
-                    </div>
+                <div class="col-lg-11 col-md-11">
+                    <div id="dc-label"></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-1 col-md-1">
-                        <h5>Danger</h5>
-                        <h5> Event </h5>
-                        <h5> Congestion </h5>
-                        <h5> Confuse </h5>
-                        <h5> Stable </h5>
-                    </div>
-                    <div class="col-lg-11 col-md-11">
-                        <div id="dc-label"></div>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>
+                        <div id="dc-present-time"></div>
+                    </h4>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>
-                            <div id="dc-present-time"></div>
-                        </h4>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <h3>訪日外国人比率</h3>
+                    <div id="dc-country-graph"></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <h3>訪日外国人比率</h3>
-                        <div id="dc-country-graph"></div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <h3>初回来客比率</h3>
-                        <div id="dc-firstvisit-graph"></div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <h3>滞在人数と滞在平均時間の分布</h3>
-                        <div id="dc-bubble-graph"></div>
-                    </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3>初回来客比率</h3>
+                    <div id="dc-firstvisit-graph"></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div id="dc-time-range"></div>
-                    </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3>滞在人数と滞在平均時間の分布</h3>
+                    <div id="dc-bubble-graph"></div>
                 </div>
-            </section>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div id="dc-time-range"></div>
+                </div>
+            </div>
         </section>
     </section>
 

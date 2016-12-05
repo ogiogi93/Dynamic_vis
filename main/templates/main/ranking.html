@@ -1,0 +1,191 @@
+{% extends "header.html" %}
+{% load staticfiles %}
+{% block title %}Main Page{% endblock title %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i>{{ situation }} ランキング</h3>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-10 col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>[{{ situation }}] 時間・地点別トップ{{ limit }}</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table bootstrap-datatable countries" id="dc-rank-table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>日時</th>
+                                    <th>地点</th>
+                                    <th>滞在人数</th>
+                                    <th>滞在平均時間(分)</th>
+                                    <th>訪日外国人比率</th>
+                                    <th>初回訪問比率</th>
+                                    <th>状況</th>
+                                    <th>スコア</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--/col-->
+
+                <div class="col-lg-2 col-md-2">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select
+                            Location
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="JavaScript:clickFactory()">食堂</a></li>
+                            <li><a href="JavaScript:clickShop()">生協</a></li>
+                            <li><a href="JavaScript:clickAuditorium()">大教室</a></li>
+                            <li><a href="JavaScript:clickLectureRoom()">小教室</a></li>
+                            <li><a href="JavaScript:clickMediaCentor()">メディアセンター</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- javascripts -->
+    <!--script for this page only-->
+    <script src="{% static 'js/calendar-custom.js' %}"></script>
+    <script src="{% static 'js/jquery.rateit.min.js' %}"></script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="{% static 'js/crossfilter.js' %}"></script>
+    <script src="{% static 'js/dc.js' %}"></script>
+
+    <!--custome script for all page-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+    <!-- custom script for this page-->
+    <script>
+        var rankTable = dc.dataTable("#dc-rank-table");
+        var selectLocation = dc.pieChart("#dc-select-location");
+        function render_plots() {
+            rankTable
+                    .width(400)
+                    .height(600)
+                    .dimension(dimTime)
+                    .group(function () {
+                        return "";
+                    })
+                    .size(20)
+                    .columns([
+                        function (d) {
+                            return '';
+                        },
+                        function (d) {
+                            return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('" style="text-decoration:none;">') + d.interval + ('</a>');
+                        },
+                        function (d) {
+                            return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('" style="text-decoration:none;">') + d.location_name + ('</a>');
+                        },
+                        function (d) {
+                            return d.num_of_people;
+                        },
+                        function (d) {
+                            return Math.round(d.stay_time_avg);
+                        },
+                        function (d) {
+                            return Math.round(d.foreign_rate * 100) + '%';
+                        },
+                        function (d) {
+                            return Math.round(d.firstvisit_rate * 100) + '%';
+                        },
+                        function (d) {
+                            return d.situation;
+                        },
+                        function (d) {
+                            return d.score;
+                        }
+                    ])
+                    .sortBy(function (d) {
+                        return d.score;
+                    })
+                    .order(d3.descending);
+
+            selectLocation
+                    .width(150).height(150)
+                    .dimension(dimLocation)
+                    .group(grpLocation);
+
+            dc.renderAll();
+        }
+        var result = {{ result|safe }};
+        var parseDatetime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
+        result.forEach(function (d) {
+            d.interval_dc = parseDatetime(d.interval);
+        });
+        /* run data through crossfilter */
+        ndx = crossfilter(result);
+        var dimTime = ndx.dimension(function (d) {
+            return d.interval_dc;
+        });
+        var dimLocation = ndx.dimension(function (d) {
+            return d.location_name;
+        });
+        var grpLocation = dimLocation.group().reduceSum(function (d) {
+            return d.score
+        });
+        render_plots();
+
+        clickFactory = function () {
+            dc.filterAll();
+            for (var i = 0; i <= selectLocation.data().length - 1; i++) {
+                if (selectLocation.data()[i].key == '食堂') {
+                    selectLocation._onClick(selectLocation.data()[i]);
+                }
+            }
+        };
+        clickShop = function () {
+            dc.filterAll();
+            for (var i = 0; i <= selectLocation.data().length - 1; i++) {
+                if (selectLocation.data()[i].key == '生協') {
+                    selectLocation._onClick(selectLocation.data()[i]);
+                }
+            }
+        };
+        clickAuditorium = function () {
+            dc.filterAll();
+            for (var i = 0; i <= selectLocation.data().length - 1; i++) {
+                if (selectLocation.data()[i].key == '大教室') {
+                    selectLocation._onClick(selectLocation.data()[i]);
+                }
+            }
+        };
+        clickLectureRoom = function () {
+            dc.filterAll();
+            for (var i = 0; i <= selectLocation.data().length - 1; i++) {
+                if (selectLocation.data()[i].key == '小教室') {
+                    selectLocation._onClick(selectLocation.data()[i]);
+                }
+            }
+        };
+        clickMediaCentor = function () {
+            dc.filterAll();
+            for (var i = 0; i <= selectLocation.data().length - 1; i++) {
+                if (selectLocation.data()[i].key == 'メディアセンター') {
+                    selectLocation._onClick(selectLocation.data()[i]);
+                }
+            }
+        };
+    </script>
+{% endblock %}

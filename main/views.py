@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, Http404
+from django.shortcuts import render
+from django.http import HttpResponse
 from main.get_result import Result
+from main.ranking import Rank
 
 
 def main_page(request):
@@ -46,3 +47,19 @@ def detail_page(request):
         return render(request, 'main/detail.html', context)
     return HttpResponse(status=400)
 
+
+def rank_page(request):
+    """
+    ランキングページ
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        situation = request.GET.get('situation')
+        rank_result = Rank().get_rank(situation=situation)
+        context = {
+            "result": rank_result,
+            "situation": situation,
+            "limit": 20
+        }
+        return render(request, 'main/ranking.html', context)

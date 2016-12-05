@@ -6,156 +6,100 @@
 {% endblock %}
 
 {% block content %}
-    <!-- container section start -->
-    <section id="container" class="">
-
-
-        <header class="header dark-bg">
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
-                        class="icon_menu"></i></div>
-            </div>
-
-            <!--logo start-->
-            <a href="{% url 'main_page' %}" class="logo">MDBL <span class="lite">Research</span></a>
-            <!--logo end-->
-            <div class="nav search-row" id="top_menu">
-                <!--  search form start -->
-                <ul class="nav top-menu">
-                    <li>
-
-                        <button class="btn dropdown-toggle" name="recordinput" data-toggle="dropdown">
-                            日付
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-7(月)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-8(火)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-9">2016-11-9(水)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-10">2016-11-10(木)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-11">2016-11-11(金)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-12">2016-11-12(土)</a></li>
-                            <li><a href="{% url 'main_page' %}?date=2016-11-13">2016-11-13(日)</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!--  search form end -->
-        </header>
-
-        <!--header end-->
-
-        <!--sidebar start-->
-        <aside>
-            <div id="sidebar" class="nav-collapse ">
-                <!-- sidebar menu start-->
-                <ul class="sidebar-menu">
-                    <li class="active">
-                        <a class="" href="{% url 'main_page' %}">
-                            <i class="icon_house_alt"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- sidebar menu end-->
-            </div>
-        </aside>
-        <!--sidebar end-->
-        <!--main content start-->
-        <section id="main-content">
-            <section class="wrapper">
-                <!--overview start-->
-                <div class="row">
-                    <div class="col-lg-9">
-                        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
-                    </div>
-                    <div class="col-lg-3">
-                        <h3 class="page-header"><i class="fa fa-font-awesome"></i>Notification</h3>
-                    </div>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-lg-9">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>
-                            <div id="dc-present-time"></div>
-                        </h4>
-                    </div>
+                <div class="col-lg-3">
+                    <h3 class="page-header"><i class="fa fa-font-awesome"></i>Notification</h3>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>
+                        <div id="dc-present-time"></div>
+                    </h4>
+                </div>
+            </div>
 
 
-                <div class="row">
-                    <div class="col-lg-9 col-md-12">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h2><i class="fa fa-map-marker red"></i><strong>Map</strong></h2>
-                                <div class="panel-actions">
-                                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                                </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-map-marker red"></i><strong>Map</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
                             </div>
-                            <div class="panel-body-map">
-                                <div id="map" style="width: 920px; height: 500px;position: relative;">
-                                    <img src="/static/img/sfc_map.png"
-                                         style="height: 500px;width: 915px;">
-                                    <div id="dc-plot-table"></div>
-                                </div>
-                            </div>
-
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div id="dc-notification-table"></div>
-                    </div>
-                </div>
-                <br><br><br><br><br><br><br>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div id="dc-time-range"></div>
-                    </div>
-
-                </div>
-
-
-                <!-- Today status end -->
-
-                <br><br>
-                <div class="row">
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h2><i class="fa fa-flag-o red"></i><strong>推定結果</strong></h2>
-                                <div class="panel-actions">
-                                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                                </div>
+                        <div class="panel-body-map">
+                            <div id="map" style="width: 920px; height: 500px;position: relative;">
+                                <img src="/static/img/sfc_map.png"
+                                     style="height: 500px;width: 915px;">
+                                <div id="dc-plot-table"></div>
                             </div>
-                            <div class="panel-body">
-                                <table class="table bootstrap-datatable countries" id="dc-result-table">
-                                    <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>日時</th>
-                                        <th>地点</th>
-                                        <th>滞在人数</th>
-                                        <th>滞在平均時間(分)</th>
-                                        <th>訪日外国人比率</th>
-                                        <th>初回訪問比率</th>
-                                        <th>状況</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-
                         </div>
 
-                    </div><!--/col-->
-
+                    </div>
                 </div>
-                <!-- project team & activity end -->
-            </section>
+                <div class="col-md-3">
+                    <div id="dc-notification-table"></div>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="dc-time-range"></div>
+                </div>
+
+            </div>
+
+
+            <!-- Today status end -->
+
+            <br><br>
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>推定結果</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table bootstrap-datatable countries" id="dc-result-table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>日時</th>
+                                    <th>地点</th>
+                                    <th>滞在人数</th>
+                                    <th>滞在平均時間(分)</th>
+                                    <th>訪日外国人比率</th>
+                                    <th>初回訪問比率</th>
+                                    <th>状況</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div><!--/col-->
+
+            </div>
+            <!-- project team & activity end -->
         </section>
         <!--main content end-->
     </section>
@@ -274,10 +218,10 @@
                             return Math.round(d.stay_time_avg);
                         },
                         function (d) {
-                            return Math.round(d.foreign_rate) * 100 + '%';
+                            return Math.round(d.foreign_rate*100) + '%';
                         },
                         function (d) {
-                            return Math.round(d.firstvisit_rate) * 100 + '%';
+                            return Math.round(d.firstvisit_rate*100) + '%';
                         },
                         function (d) {
                             return d.situation;

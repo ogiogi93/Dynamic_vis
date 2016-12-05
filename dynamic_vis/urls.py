@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main_page, name='main_page'),
     url(r'^detail/$', detail_page, name='detail_page'),
+    url(r'^ranking/$', rank_page, name='ranking_page'),
 ]

@@ -59,9 +59,82 @@
     <script src="{% static 'assets/fullcalendar/fullcalendar/fullcalendar.js' %}"></script>
 </head>
 <body>
-{% block content %}
+<!-- container section start -->
+<section id="container" class="">
+
+
+    <header class="header dark-bg">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
+                    class="icon_menu"></i></div>
+        </div>
+
+        <!--logo start-->
+        <a href="{% url 'main_page' %}" class="logo">MDBL <span class="lite">Research</span></a>
+        <!--logo end-->
+        <div class="nav search-row" id="top_menu">
+            <!--  search form start -->
+            <ul class="nav top-menu">
+                <li>
+
+                    <button class="btn dropdown-toggle" name="recordinput" data-toggle="dropdown">
+                        日付
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-7(月)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-8(火)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-9">2016-11-9(水)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-10">2016-11-10(木)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-11">2016-11-11(金)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-12">2016-11-12(土)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-13">2016-11-13(日)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--  search form end -->
+    </header>
+
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a class="" href="{% url 'main_page' %}">
+                        <i class="icon_house_alt"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="{% url 'ranking_page' %}?situation=Danger">
+                        <i class="icon_house_alt"></i>
+                        <span>Danger Ranking</span>
+                    </a>
+                    <a class="" href="{% url 'ranking_page' %}?situation=Event">
+                        <i class="icon_house_alt"></i>
+                        <span>Event Ranking</span>
+                    </a>
+                    <a class="" href="{% url 'ranking_page' %}?situation=confuse">
+                        <i class="icon_house_alt"></i>
+                        <span>Confuse Ranking</span>
+                    </a>
+                    <a class="" href="{% url 'ranking_page' %}?situation=congestion">
+                        <i class="icon_house_alt"></i>
+                        <span>Congestion Ranking</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    {% block content %}
         {{ content }}
-    </section>
-{% endblock %}
+    {% endblock %}
+</section>
 </body>
 </html>
