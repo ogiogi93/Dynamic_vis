@@ -10,6 +10,14 @@ def main_page(request):
     :param request:
     :return:
     """
+    if request.GET.get('date') is not None:
+        date = request.GET.get('date')
+        result = Result().main(date=date)
+        context = {
+            "result": result
+        }
+        return render(request, 'main/index.html', context)
+
     result = Result().main()
     context = {
         "result": result

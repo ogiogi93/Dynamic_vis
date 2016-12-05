@@ -19,8 +19,30 @@
             <!--logo start-->
             <a href="{% url 'main_page' %}" class="logo">MDBL <span class="lite">Research</span></a>
             <!--logo end-->
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">
+                    <li>
 
+                        <button class="btn dropdown-toggle" name="recordinput" data-toggle="dropdown">
+                            日付
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-7(月)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-8(火)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-9">2016-11-9(水)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-10">2016-11-10(木)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-11">2016-11-11(金)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-12">2016-11-12(土)</a></li>
+                            <li><a href="{% url 'main_page' %}?date=2016-11-13">2016-11-13(日)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--  search form end -->
         </header>
+
         <!--header end-->
 
         <!--sidebar start-->
@@ -252,10 +274,10 @@
                             return Math.round(d.stay_time_avg);
                         },
                         function (d) {
-                            return Math.round(d.foreign_rate)*100 + '%';
+                            return Math.round(d.foreign_rate) * 100 + '%';
                         },
                         function (d) {
-                            return Math.round(d.firstvisit_rate)*100 + '%';
+                            return Math.round(d.firstvisit_rate) * 100 + '%';
                         },
                         function (d) {
                             return d.situation;
@@ -305,5 +327,10 @@
         var minTime = dimTime.bottom(1)[0].interval_dc;
         var maxTime = dimTime.top(1)[0].interval_dc;
         render_plots()
+
+        $(".dropdown-menu li a").click(function () {
+            var selText = $(this).text();
+            $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+        });
     </script>
 {% endblock %}
