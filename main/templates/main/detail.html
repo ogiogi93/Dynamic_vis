@@ -157,11 +157,12 @@
 
             labelChart
                     .width(1050)
-                    .height(148)
+                    .height(150)
                     .x(d3.time.scale().domain([minTime, maxTime]))
+                    .y(d3.scale.linear().domain([0, 6]))
                     .brushOn(true)
-                    .margins({top: 42, right: 0, bottom: -1, left: -30})
-                    .elasticY(true)
+                    .margins({top: -10, right: 0, bottom: 0, left: -30})
+                    .elasticY(false)
                     //.mouseZoomable(true)
                     .dimension(dimTime)
                     .group(grpTimeLabel);
