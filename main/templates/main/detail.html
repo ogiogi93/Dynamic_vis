@@ -5,7 +5,7 @@
 {% block extrahead %}
     <style>
         #dc-firstvisit-graph {
-            color: black;;
+            color: black;
         }
     </style>
 {% endblock %}
@@ -17,23 +17,26 @@
             <!--overview start-->
             <div class="row">
                 <div class="col-lg-9">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i>{{ date }} {{ location_name }}の詳細情報</h3>
+                    <h2><i class="fa fa-laptop"></i>{{ date }} {{ location_name }}の詳細情報</h2>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h3>滞在人数・意味解析結果推移</h3>
+                    <h3>滞在人数推移</h3>
                     <div id="dc-line-graph"></div>
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h3>意味解析結果推移</h3>
+                </div>
                 <div class="col-lg-1 col-md-1">
-                    <h5>Danger</h5>
-                    <h5> Event </h5>
-                    <h5> Congestion </h5>
-                    <h5> Confuse </h5>
-                    <h5> Stable </h5>
+                    <h5 style="color: black;font-weight: bold;">Danger</h5>
+                    <h5 style="color: black;font-weight: bold;"> Event </h5>
+                    <h5 style="color: black;font-weight: bold;"> Congestion </h5>
+                    <h5 style="color: black;font-weight: bold;"> Confuse </h5>
+                    <h5 style="color: black;font-weight: bold;"> Stable </h5>
                 </div>
                 <div class="col-lg-11 col-md-11">
                     <div id="dc-label"></div>
@@ -92,7 +95,7 @@
         function render_plots() {
             lineChart
                     .width(1200)
-                    .height(175)
+                    .height(150)
                     .x(d3.time.scale().domain([minTime, maxTime]))
                     .brushOn(true)
                     .yAxisLabel("Number of People")
@@ -105,7 +108,7 @@
 
             countryChart
                     .width(400)
-                    .height(150)
+                    .height(130)
                     .dimension(dimCountry)
                     .group(grpCountry)
                     .slicesCap(4)
@@ -119,7 +122,7 @@
 
             firstVisitChart
                     .width(400)
-                    .height(150)
+                    .height(130)
                     .dimension(dimFirstVisit)
                     .group(grpFirstVisit)
                     .slicesCap(4)
@@ -133,7 +136,7 @@
 
             bubbleChart
                     .width(400)
-                    .height(150)
+                    .height(130)
                     .dimension(dimStayTime)
                     .group(dimStayTime.group().reduceCount())
                     .keyAccessor(function (d) {
