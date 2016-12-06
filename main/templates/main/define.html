@@ -1,0 +1,107 @@
+{% extends "header.html" %}
+{% load staticfiles %}
+{% block title %}Ranking Page{% endblock title %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--overview start-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i>定義</h3>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>状況の定義</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table bootstrap-datatable countries" id="dc-define-table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>状況</th>
+                                    <th>滞在人数</th>
+                                    <th>滞在平均時間</th>
+                                    <th>訪日外国人比率</th>
+                                    <th>初回訪問比率</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--/col-->
+
+            </div>
+        </section>
+    </section>
+    <!-- javascripts -->
+    <!--script for this page only-->
+    <script src="{% static 'js/calendar-custom.js' %}"></script>
+    <script src="{% static 'js/jquery.rateit.min.js' %}"></script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="{% static 'js/crossfilter.js' %}"></script>
+    <script src="{% static 'js/dc.js' %}"></script>
+
+    <!--custome script for all page-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+    <!-- custom script for this page-->
+    <script>
+        var defineTable = dc.dataTable("#dc-define-table");
+        function render_plots() {
+            defineTable
+                    .width(400)
+                    .height(600)
+                    .dimension(dimSituation)
+                    .group(function () {
+                        return "";
+                    })
+                    .size(20)
+                    .columns([
+                        function (d) {
+                            return '';
+                        },
+                        function (d) {
+                            return d.situation;
+                        },
+                        function (d) {
+                            return d.num_of_people;
+                        },
+                        function (d) {
+                            return d.stay_time_avg;
+                        },
+                        function (d) {
+                            return d.foreign_rate;
+                        },
+                        function (d) {
+                            return d.firstvisit_rate;
+                        }
+                    ])
+                    .sortBy(function (d) {
+                        return d.id;
+                    })
+                    .order(d3.ascending);
+
+            dc.renderAll();
+        }
+        var define = {{ define|safe }};
+        var ndx = crossfilter(define);
+        var dimSituation = ndx.dimension(function (d) {
+            return d.situation;
+        });
+        render_plots();
+    </script>
+{% endblock %}

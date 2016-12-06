@@ -63,3 +63,18 @@ def rank_page(request):
             "limit": 20
         }
         return render(request, 'main/ranking.html', context)
+
+
+def define_page(request):
+    """
+    状況の定義に関するページ
+    :param request:
+    :return:
+    """
+    define = Result().get_data(db_table='semantic')
+    define['id'] = define.index
+    define = define.to_json(orient='records')
+    context = {
+        "define": define
+    }
+    return render(request, 'main/define.html', context)

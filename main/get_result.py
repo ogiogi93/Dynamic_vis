@@ -95,12 +95,14 @@ class Result(object):
         # 定義された状況テーブルと距離計算する
         for features_index in features_indexes:
             for semantic_index in semantic_indexes:
+                semantic_len = len([1 for _len in semantic.ix[semantic_index] if (_len == 1 or _len == -1)])
                 score = features_num_of_people[features_index] * semantic_num_of_people[semantic_index] + \
                         features_stay_time_avg[features_index] * features_stay_time_avg[semantic_index] + \
                         features_firstvisit_rate[features_index] * semantic_firstvisit_rate[semantic_index] + \
                         features_foreign_rate[features_index] * semantic_foreign_rate[semantic_index]
+                score2 = score / semantic_len
                 score_list.append(Score(features_interval[features_index], features_location_id[features_index],
-                                        semantic_situation[semantic_index], semantic_detail[semantic_index], score))
+                                        semantic_situation[semantic_index], semantic_detail[semantic_index], score2))
         return score_list
 
     def get_sensor_data(self, db_table=None, date=None):
@@ -168,9 +170,11 @@ class Result(object):
         features_row2 = pd.merge(features_row, location, on=['location_id'])
         features_row2 = pd.merge(features_row2, features, on=['location_id', 'interval'])
 
-        features_row2['date'] = features_row2['interval'].apply(self.add_date)
+        features_row3 = features_row2.sort_values('stay_time', ascending=False).groupby(['mid', 'interval'],
+                                                                                        as_index=False).first()
+        features_row3['date'] = features_row3['interval'].apply(self.add_date)
         # 地点で絞り込む
-        final_features = features_row2[features_row2['location_name'] == location_name]
+        final_features = features_row3[features_row3['location_name'] == location_name]
         # str型にしないとjsonにした時におかしな値になる
         final_features['interval'] = final_features['interval'].astype(str)
         final_features['date'] = final_features['date'].astype(str)
