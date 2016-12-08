@@ -99,16 +99,16 @@
                             return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('" style="text-decoration:none;">') + d.location_name + ('</a>');
                         },
                         function (d) {
-                            return d.num_of_people;
+                            return d.num_of_people + '(' + d.num_of_people_score.toFixed(2) + ')';
                         },
                         function (d) {
-                            return Math.round(d.stay_time_avg);
+                            return Math.round(d.stay_time_avg) + '(' + d.stay_time_avg_score.toFixed(2) + ')';
                         },
                         function (d) {
-                            return Math.round(d.foreign_rate * 100) + '%';
+                            return Math.round(d.foreign_rate * 100) + '%' + '(' + d.foreign_rate_score.toFixed(2) + ')';
                         },
                         function (d) {
-                            return Math.round(d.firstvisit_rate * 100) + '%';
+                            return Math.round(d.firstvisit_rate * 100) + '%' + '(' + d.firstvisit_rate_score.toFixed(2) + ')';
                         },
                         function (d) {
                             return d.situation;

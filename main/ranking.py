@@ -16,7 +16,15 @@ class Rank(Result):
         limit = str(limit)
         cursor = connection.cursor()
         cursor.execute("""
-            SELECT  interval, location_id, situation, score
+            SELECT
+              interval,
+               location_id,
+               stay_time_avg AS stay_time_avg_score,
+               num_of_people AS num_of_people_score,
+               firstvisit_rate AS firstvisit_rate_score,
+               foreign_rate AS foreign_rate_score,
+               situation,
+               score
             FROM score
             WHERE situation = '""" + situation + """'AND interval::date >= '2016-11-07'
             ORDER BY score
