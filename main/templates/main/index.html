@@ -154,19 +154,19 @@
                     .columns([
                         function (d) {
                             if (d.location_name == '食堂') {
-                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 195px; left: 55px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 195px; left: 40px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
                             if (d.location_name == '生協') {
-                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 50px; left: 220px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 50px; left: 200px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
                             if (d.location_name == '大教室') {
-                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 475px; left: 215px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 475px; left: 200px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
                             if (d.location_name == '小教室') {
-                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 110px; left: 330px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 110px; left: 310px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
                             if (d.location_name == 'メディアセンター') {
-                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 225px; left: 500px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
+                                return ('<a href="{% url 'detail_page' %}?location_name=') + d.location_name + ('&date=') + d.date + ('">') + ('<p style="position: absolute; top: 225px; left: 480px; font-size:20px; color: red">') + d.situation + ('</p>') + ('</a>');
                             }
                         }
                     ])

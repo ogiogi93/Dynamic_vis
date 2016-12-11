@@ -82,7 +82,9 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-7(月)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-5">2016-11-5(土)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-6">2016-11-6(日)</a></li>
+                        <li><a href="{% url 'main_page' %}?date=2016-11-7">2016-11-7(月)</a></li>
                         <li><a href="{% url 'main_page' %}?date=2016-11-8">2016-11-8(火)</a></li>
                         <li><a href="{% url 'main_page' %}?date=2016-11-9">2016-11-9(水)</a></li>
                         <li><a href="{% url 'main_page' %}?date=2016-11-10">2016-11-10(木)</a></li>
@@ -110,23 +112,23 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="{% url 'ranking_page' %}?situation=Danger">
+                    <a class="" href="{% url 'ranking_page' %}?situation=Complex">
                         <i class="icon_blocked"></i>
-                        <span>Danger Ranking</span>
+                        <span>Complex Ranking</span>
                     </a>
                     <a class="" href="{% url 'ranking_page' %}?situation=Event">
                         <i class="icon_bag_alt"></i>
                         <span>Event Ranking</span>
                     </a>
-                    <a class="" href="{% url 'ranking_page' %}?situation=confuse">
+                    <a class="" href="{% url 'ranking_page' %}?situation=First Coming">
                         <i class="icon_camera"></i>
-                        <span>Confuse Ranking</span>
+                        <span>First Coming Ranking</span>
                     </a>
-                    <a class="" href="{% url 'ranking_page' %}?situation=congestion">
+                    <a class="" href="{% url 'ranking_page' %}?situation=Congestion">
                         <i class="icon_cloud"></i>
                         <span>Congestion Ranking</span>
                     </a>
-                    <a class="" href="{% url 'define_page' %}?situation=congestion">
+                    <a class="" href="{% url 'define_page' %}">
                         <i class="icon_documents"></i>
                         <span>Define of Situation</span>
                     </a>
