@@ -63,13 +63,13 @@ class Result(object):
         :param situation:
         :return:
         """
-        if situation == 'Danger':
+        if situation == 'Complex':
             return 5
         elif situation == 'Event':
             return 4
-        elif situation == 'congestion':
+        elif situation == 'Congestion':
             return 3
-        elif situation == 'confuse':
+        elif situation == 'First Coming':
             return 2
         else:
             return 1

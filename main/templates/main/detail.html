@@ -26,10 +26,10 @@
                     <h3>意味解析結果推移</h3>
                 </div>
                 <div class="col-lg-1 col-md-1">
-                    <h5 style="color: black;font-weight: bold;">Danger</h5>
+                    <h5 style="color: black;font-weight: bold;"> Complex</h5>
                     <h5 style="color: black;font-weight: bold;"> Event </h5>
                     <h5 style="color: black;font-weight: bold;"> Congestion </h5>
-                    <h5 style="color: black;font-weight: bold;"> Confuse </h5>
+                    <h5 style="color: black;font-weight: bold;"> First Coming </h5>
                     <h5 style="color: black;font-weight: bold;"> Stable </h5>
                 </div>
                 <div class="col-lg-11 col-md-11">
@@ -157,11 +157,11 @@
 
             labelChart
                     .width(1050)
-                    .height(150)
+                    .height(170)
                     .x(d3.time.scale().domain([minTime, maxTime]))
                     .y(d3.scale.linear().domain([0, 6]))
                     .brushOn(true)
-                    .margins({top: -10, right: 0, bottom: 0, left: -30})
+                    .margins({top: -25, right: 0, bottom: 0, left: -30})
                     .elasticY(false)
                     //.mouseZoomable(true)
                     .dimension(dimTime)
