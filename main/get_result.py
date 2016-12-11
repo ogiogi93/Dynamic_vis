@@ -69,7 +69,7 @@ class Result(object):
             return 4
         elif situation == 'Congestion':
             return 3
-        elif situation == 'First Coming':
+        elif situation == 'NewComer':
             return 2
         else:
             return 1

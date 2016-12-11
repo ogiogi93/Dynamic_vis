@@ -15,7 +15,7 @@ INSERT INTO semantic(situation,detail,num_of_people,stay_time_avg,firstvisit_rat
 INSERT INTO semantic(situation,detail,num_of_people,stay_time_avg,firstvisit_rate,foreign_rate) VALUES
 ('Event', '初めて訪問した人々が多くいる状況', 1, 0, 1, 0);
 INSERT INTO semantic(situation,detail,num_of_people,stay_time_avg,firstvisit_rate,foreign_rate) VALUES
-('First Coming', '訪日外国人などの慣れていない人々が多く滞在している状況', 0, 0, 1, 1);
+('NewComer', '訪日外国人などの慣れていない人々が多く滞在している状況', 0, 0, 1, 1);
 INSERT INTO semantic(situation,detail,num_of_people,stay_time_avg,firstvisit_rate,foreign_rate) VALUES
 ('Congestion', '人々が多く滞在している状況', 1, 0, 0, 0);
 INSERT INTO semantic(situation,detail,num_of_people,stay_time_avg,firstvisit_rate,foreign_rate) VALUES
