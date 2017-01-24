@@ -13,11 +13,6 @@ https://dynamic-vis.ogiogi93.com
 - 荻原崇, 白迎玖, 髙垣良宏, 清木康,“無線センサを用いた駅構内における大規模人流誘導を対象とする流動 意味解析システム”, 交通運輸プロジェクトレビュー No.24, 2015年度慶應義塾大学JR東日本寄附講座報告書,p.45-50, 2016<br>
 - Takashi OGIWARA, Yasushi KIYOKI, “A Dynamic Equalizer System with Person Flow and Semantic Analysis for Recognizing Environmental Situations ”, International Electronics Symposium (IES) 2016, 1570297088, 2016<br>
 
-
-## Licence
-
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
-
 ## Author
 
 [ogiogi93](https://github.com/ogiogi93)
