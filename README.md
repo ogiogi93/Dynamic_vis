@@ -6,7 +6,7 @@ A Dynamic Visualization System with Person Flow and Semantic Analysis for Recogn
 
 ## Demo<br>
 実際にキャンパス内にてWi-Fiパケットセンサを設置しデータを収集した。分析結果は下記の可視化システムに表示している
-https://dynamic-vis.ogiogi93.com
+http://dynamic-vis.ogiogi93.com
 
 ## Article<br>
 - 荻原崇, 白迎玖, 髙垣良宏, 清木康,“無線センサを用いた駅構内における大規模人流誘導を対象とする流動 意味解析システム”,DEIM Forum 2016,F6-2,2016<br>
